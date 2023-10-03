@@ -72,17 +72,7 @@ func NewClient(logger *zap.Logger, awsConfig *aws.Config, buildInfo component.Bu
 	client := cloudwatchlogs.New(sess, awsConfig)
 	client.Handlers.Build.PushBackNamed(handler.NewRequestCompressionHandler([]string{"PutLogEvents"}, logger))
 	client.Handlers.Build.PushBackNamed(handler.RequestStructuredLogHandler)
-
-	// Loop through each option
-	option := &UserAgentFlag{
-		isEnhancedContainerInsights: false,
-		isPulseApm:                  false,
-	}
-	for _, opt := range opts {
-		opt(option)
-	}
-
-	client.Handlers.Build.PushFrontNamed(newCollectorUserAgentHandler(buildInfo, logGroupName, option))
+	client.Handlers.Build.PushFrontNamed(newCollectorUserAgentHandler(buildInfo, logGroupName, enhancedContainerInsights))
 	return newCloudWatchLogClient(client, logRetention, tags, logger)
 }
 
