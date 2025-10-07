@@ -11,6 +11,9 @@ on:
         required: true
         default: "300"
 
+env:
+  DEFAULT_TEST_DURATION_MINUTES: 300
+
 jobs:
   check-versions:
     runs-on: ubuntu-latest
@@ -24,7 +27,7 @@ jobs:
           echo $TARGET_SHA
       - name: Configure Performance Test Duration
         env:
-          DURATION: ${{ github.event.inputs.test_duration_minutes }}
+          DURATION: ${{ github.event.inputs.test_duration_minutes || env.DEFAULT_TEST_DURATION_MINUTES }}
         run: |
-          echo "TEST_DURATION_MINUTES=${{ DURATION || env.DEFAULT_TEST_DURATION_MINUTES }}" | tee --append $GITHUB_ENV;
+          echo "TEST_DURATION_MINUTES=$DURATION" | tee --append $GITHUB_ENV;
           echo $TEST_DURATION_MINUTES
