@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Use INPUT as commit SHA
         env:
-          TARGET_SHA: ${{ github.event.pull_request.title }}
+          TARGET_SHA: ${{ github.event.inputs.target_commit_sha }}
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           echo $TARGET_SHA
