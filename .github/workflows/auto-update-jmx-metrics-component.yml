@@ -26,5 +26,5 @@ jobs:
         env:
           DURATION: ${{ github.event.inputs.test_duration_minutes }}
         run: |
-          echo "TEST_DURATION_MINUTES=${{ $DURATION || env.DEFAULT_TEST_DURATION_MINUTES }}" | tee --append $GITHUB_ENV;
+          echo "TEST_DURATION_MINUTES=${{ DURATION || env.DEFAULT_TEST_DURATION_MINUTES }}" | tee --append $GITHUB_ENV;
           echo $TEST_DURATION_MINUTES
