@@ -18,14 +18,12 @@ jobs:
     steps:
       - name: Use INPUT as commit SHA
         env:
-          SHA: ${{ github.event.pull_request.title }}
+          TARGET_SHA: ${{ github.event.pull_request.title }}
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
-          echo "TARGET_SHA=$SHA" | tee --append $GITHUB_ENV;
           echo $TARGET_SHA
       - name: Configure Performance Test Duration
         env:
-          DURATION: ${{ github.event.inputs.test_duration_minutes || env.DEFAULT_TEST_DURATION_MINUTES }}
+          TEST_DURATION_MINUTES: ${{ github.event.inputs.test_duration_minutes || env.DEFAULT_TEST_DURATION_MINUTES }}
         run: |
-          echo "TEST_DURATION_MINUTES=$DURATION" | tee --append $GITHUB_ENV;
           echo $TEST_DURATION_MINUTES
