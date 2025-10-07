@@ -8,8 +8,6 @@ on:
         required: true
       test_duration_minutes:
         description: 'The duration of the Soak Tests in minutes.'
-        required: true
-        default: "300"
 
 env:
   DEFAULT_TEST_DURATION_MINUTES: 300
